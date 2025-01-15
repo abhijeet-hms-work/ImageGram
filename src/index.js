@@ -1,8 +1,7 @@
 import express from "express";
 import { connect } from "mongoose";
 import connectDB from "./config/dbConfig.js";
-import { createPost } from "./controllers/postController.js";
-import { s3uploader } from "./config/multerConfig.js";
+import apiRouter from "./routers/apiRouter.js";
 
 const PORT = 3000;
 
@@ -12,14 +11,14 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded());
 
+app.use("/api", apiRouter);
+
 app.get("/ping", (req, res) => {
   // const name = req.params.name;
   // console.log(req.query);
   console.log(req.body);
   return res.json({ message: "ping" });
 });
-
-app.post("/posts", s3uploader.single("image"), createPost);
 
 app.listen(PORT, () => {
   console.log("server listening on: http://localhost:", PORT);
