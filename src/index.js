@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded());
 
-app.use("/api", apiRouter);
+app.use("/api", apiRouter); // If the url starts with /api then the request
+// is forwarded to the apiRouter
 
 app.get("/ping", (req, res) => {
   // const name = req.params.name;
