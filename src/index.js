@@ -13,7 +13,7 @@ app.use(express.urlencoded());
 
 app.get("/ping", (req, res) => {
   // const name = req.params.name;
-  console.log(req.query);
+  // console.log(req.query);
   console.log(req.body);
   return res.json({ message: "ping" });
 });
