@@ -1,4 +1,8 @@
-import { createPostService } from "../services/postService.js";
+import {
+  createPostService,
+  getAllPostsServices,
+} from "../services/postService.js";
+
 export async function createPost(req, res) {
   console.log(req.file);
   // call ther service layer function
@@ -16,11 +20,24 @@ export async function createPost(req, res) {
   });
 }
 
+// /api/v1/posts?limit=10&offset=0
 export async function getAllPosts(req, res) {
-  // return unimplemented
+  try {
+    const limit = req.query.limit || 10;
+    const offset = req.query.offset || 0;
 
-  return res.status(501).json({
-    success: false,
-    message: "Not Implemented",
-  });
+    const paginatedPosts = await getAllPostsServices(offset, limit);
+
+    return res.status(200).json({
+      success: true,
+      message: "All posts fetched succesfully",
+      data: paginatedPosts,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
 }
