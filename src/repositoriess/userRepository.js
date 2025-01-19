@@ -17,3 +17,12 @@ export const findAllUsers = async () => {
     console.log(error);
   }
 };
+export const createUser = async (user) => {
+  try {
+    const newuser = await User.create(user);
+    return newuser;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
