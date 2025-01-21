@@ -8,7 +8,7 @@ import { AWS_BUCKET_NAME } from "./serverConfig.js";
 export const s3uploader = multer({
   storage: multerS3({
     s3: s3,
-    bucket: AWS_BUCKET_NAME,
+    bucket: () => `${AWS_BUCKET_NAME}`,
     key: function (req, file, cb) {
       console.log(file);
       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
